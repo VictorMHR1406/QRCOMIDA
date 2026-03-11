@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 	<title>Registro de Delegados con QR</title>
 	<link rel="stylesheet" href="styles.css" />
 </head>
@@ -51,7 +51,6 @@
 				<button id="stopScannerBtn" type="button" disabled>Detener cámara</button>
 			</div>
 			<div id="scanResult" class="result">Aún no se ha escaneado ningún código.</div>
-			<div id="qrPreview" class="result">Selecciona “Ver QR” en un registro pagado para visualizarlo aquí.</div>
 		</section>
 
 		<section class="card section-spacer">
@@ -66,6 +65,15 @@
 			</div>
 		</section>
 	</div><!-- /appContent -->
+
+	<div id="qrModal" class="qr-modal" hidden>
+		<div class="qr-modal-backdrop" data-action="close-qr-modal"></div>
+		<div class="qr-modal-card" role="dialog" aria-modal="true" aria-labelledby="qrModalTitle">
+			<button id="qrModalClose" class="qr-modal-close" type="button" aria-label="Cerrar ventana QR">✕</button>
+			<h2 id="qrModalTitle">QR del delegado</h2>
+			<div id="qrPreview" class="qr-modal-content"></div>
+		</div>
+	</div>
 
 	<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 	<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>

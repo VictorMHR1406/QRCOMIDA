@@ -8,7 +8,8 @@ service cloud.firestore {
         && request.auth.token.email in [
           'victorbanco132@gmail.com',
           'andresrj@trinityschool.mx',
-          'diegodt@trinityschool.mx'
+          'diegodt@trinityschool.mx',
+          'vivianabj@trinityschool.mx'
         ];
     }
 
@@ -23,7 +24,8 @@ service cloud.firestore {
         'delegateName',
         'school',
         'code',
-        'paid'
+        'paid',
+        'meal'
       ])
       && request.resource.data.committee is string
       && isValidCommittee(request.resource.data.committee)
@@ -37,7 +39,8 @@ service cloud.firestore {
       && request.resource.data.code is string
       && request.resource.data.code.size() >= 4
       && request.resource.data.code.size() <= 180
-      && request.resource.data.paid is bool;
+      && request.resource.data.paid is bool
+      && request.resource.data.meal is bool;
     }
 
     match /delegates/{docId} {

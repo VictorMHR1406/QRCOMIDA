@@ -106,11 +106,16 @@ const ADMIN_EMAILS = [
 	"andresrj@trinityschool.mx",
 	"diegodt@trinityschool.mx",
     "vivianabj@trinityschool.mx",
+    "valeriahu@trinityschool.mx",
+    "enriquesc@trinityschool.mx",
+    "laurocr@trinityschool.mx",
 ];
 
 const committeeSections = document.getElementById("committeeSections");
 const scanResult = document.getElementById("scanResult");
 const qrPreview = document.getElementById("qrPreview");
+const qrModal = document.getElementById("qrModal");
+const qrModalClose = document.getElementById("qrModalClose");
 const startScannerBtn = document.getElementById("startScannerBtn");
 const stopScannerBtn = document.getElementById("stopScannerBtn");
 const searchInput = document.getElementById("searchInput");
@@ -140,6 +145,25 @@ let cloudDb = null;
 let cloudUnsubscribe = null;
 let cloudCollection = FIREBASE_COLLECTION;
 let firebaseApp = null;
+
+function openQrModal() {
+	if (!qrModal) return;
+	qrModal.hidden = false;
+	document.body.style.overflow = "hidden";
+	if (qrModalClose) {
+		requestAnimationFrame(() => qrModalClose.focus());
+	}
+}
+
+function closeQrModal() {
+	if (!qrModal) return;
+	qrModal.hidden = true;
+	document.body.style.overflow = "";
+	previewState = null;
+	if (qrPreview) {
+		qrPreview.innerHTML = "";
+	}
+}
 
 function sanitize(text) {
 	return String(text ?? "")
@@ -194,6 +218,7 @@ function normalizeRecord(data, fallbackCode = "") {
 		school: normalizeText(data.school, "Sin escuela"),
 		code: normalizeText(data.code, fallbackCode || "SIN-CODIGO"),
 		paid: Boolean(data.paid),
+		meal: Boolean(data.meal),
 	};
 }
 
@@ -275,6 +300,7 @@ function toFirestoreDoc(row) {
 		school: row.school,
 		code: row.code,
 		paid: row.paid,
+		meal: row.meal,
 	};
 }
 
@@ -382,6 +408,7 @@ function updateUserBar(user) {
 }
 
 function hideApp() {
+	closeQrModal();
 	appContent.hidden = true;
 	userBar.hidden = true;
 	loginOverlay.style.display = "flex";
@@ -503,14 +530,13 @@ async function saveRecord(next) {
 		alert("Acceso denegado: solo los administradores pueden guardar cambios.");
 		return;
 	}
-	if (cloudEnabled && cloudDb) {
-		await cloudDb.collection(cloudCollection).doc(next.id).set(toFirestoreDoc(next), { merge: true });
-		return;
-	}
-
 	const index = delegates.findIndex((row) => row.id === next.id);
 	if (index !== -1) {
 		delegates[index] = next;
+	}
+
+	if (cloudEnabled && cloudDb) {
+		await cloudDb.collection(cloudCollection).doc(next.id).set(toFirestoreDoc(next), { merge: true });
 	}
 	saveData();
 }
@@ -521,6 +547,12 @@ function paymentBadge(paid) {
 		: '<span class="badge warn">NO PAGÓ</span>';
 }
 
+function mealBadge(meal) {
+	return meal
+		? '<span class="badge ok">ENTREGADA</span>'
+		: '<span class="badge warn">NO ENTREGADA</span>';
+}
+
 function makePayload(row) {
 	return JSON.stringify({
 		code: row.code,
@@ -529,6 +561,7 @@ function makePayload(row) {
 		delegateName: row.delegateName,
 		school: row.school,
 		paid: row.paid,
+		meal: row.meal,
 	});
 }
 
@@ -699,6 +732,7 @@ async function renderCommitteeSections() {
 	const sections = await Promise.all(COMMITTEES.map(async (committee) => {
 		const rows = getCommitteeRows(committee);
 		const paidCount = rows.filter((row) => row.paid).length;
+		const mealCount = rows.filter((row) => row.meal).length;
 
 		const rowHtml = await Promise.all(rows.map(async (row) => {
 			const isEditing = isAdmin && editingState && editingState.id === row.id;
@@ -712,25 +746,32 @@ async function renderCommitteeSections() {
 					school: draft.school,
 					code: draft.code,
 					paid: draft.paid,
+					meal: draft.meal,
 				}, row.code);
 				const qrHtml = getQrCellHtml(preview);
 				return `
 					<tr class="editing-row">
-						<td><input class="inline-input" data-edit-field="delegation" data-id="${row.id}" value="${sanitize(draft.delegation)}"></td>
-						<td><input class="inline-input" data-edit-field="delegateName" data-id="${row.id}" value="${sanitize(draft.delegateName)}"></td>
-						<td><input class="inline-input" data-edit-field="school" data-id="${row.id}" value="${sanitize(draft.school)}"></td>
-						<td><input class="inline-input" data-edit-field="code" data-id="${row.id}" value="${sanitize(draft.code)}"></td>
-						<td>
+						<td data-label="Delegación"><input class="inline-input" data-edit-field="delegation" data-id="${row.id}" value="${sanitize(draft.delegation)}"></td>
+						<td data-label="Delegado"><input class="inline-input" data-edit-field="delegateName" data-id="${row.id}" value="${sanitize(draft.delegateName)}"></td>
+						<td data-label="Escuela"><input class="inline-input" data-edit-field="school" data-id="${row.id}" value="${sanitize(draft.school)}"></td>
+						<td data-label="Código"><input class="inline-input" data-edit-field="code" data-id="${row.id}" value="${sanitize(draft.code)}"></td>
+						<td data-label="Pago">
 							<select class="inline-input" data-edit-field="paid" data-id="${row.id}">
 								<option value="no" ${draft.paid ? "" : "selected"}>NO PAGÓ</option>
 								<option value="yes" ${draft.paid ? "selected" : ""}>YA PAGÓ</option>
 							</select>
 						</td>
-						<td class="qr-cell">${qrHtml}</td>
-						<td>
-							<div class="actions no-margin">
-								<button type="button" data-action="save-inline" data-id="${row.id}">Guardar</button>
-								<button type="button" data-action="cancel-inline" data-id="${row.id}">Cancelar</button>
+						<td class="qr-cell" data-label="QR">${qrHtml}</td>
+						<td data-label="Comida">
+							<select class="inline-input" data-edit-field="meal" data-id="${row.id}">
+								<option value="no" ${draft.meal ? "" : "selected"}>NO ENTREGADA</option>
+								<option value="yes" ${draft.meal ? "selected" : ""}>ENTREGADA</option>
+							</select>
+						</td>
+						<td class="action-cell" data-label="Acción">
+							<div class="actions no-margin inline-actions">
+								<button type="button" class="action-btn" data-action="save-inline" data-id="${row.id}">Guardar</button>
+								<button type="button" class="action-btn" data-action="cancel-inline" data-id="${row.id}">Cancelar</button>
 							</div>
 						</td>
 					</tr>
@@ -741,24 +782,26 @@ async function renderCommitteeSections() {
 				const qrHtml = getQrCellHtml(row);
 				return `
 					<tr>
-						<td>${sanitize(row.delegation)}</td>
-						<td>${sanitize(row.delegateName)}</td>
-						<td>${sanitize(row.school)}</td>
-						<td>${sanitize(row.code)}</td>
-						<td>${paymentBadge(row.paid)}</td>
-						<td class="qr-cell">${qrHtml}</td>
-						<td><button type="button" data-action="edit" data-id="${row.id}">Editar</button></td>
+						<td data-label="Delegación">${sanitize(row.delegation)}</td>
+						<td data-label="Delegado">${sanitize(row.delegateName)}</td>
+						<td data-label="Escuela">${sanitize(row.school)}</td>
+						<td data-label="Código">${sanitize(row.code)}</td>
+						<td data-label="Pago">${paymentBadge(row.paid)}</td>
+						<td class="qr-cell" data-label="QR">${qrHtml}</td>
+						<td data-label="Comida">${mealBadge(row.meal)}</td>
+						<td class="action-cell" data-label="Acción"><button type="button" class="action-btn" data-action="edit" data-id="${row.id}">Editar</button></td>
 					</tr>
 				`;
 			}
 
-			// Guest / non-admin view: only delegation, name, school, payment
+			// Guest / non-admin view: only delegation, name, school, payment, meal
 			return `
 				<tr>
-					<td>${sanitize(row.delegation)}</td>
-					<td>${sanitize(row.delegateName)}</td>
-					<td>${sanitize(row.school)}</td>
-					<td>${paymentBadge(row.paid)}</td>
+					<td data-label="Delegación">${sanitize(row.delegation)}</td>
+					<td data-label="Delegado">${sanitize(row.delegateName)}</td>
+					<td data-label="Escuela">${sanitize(row.school)}</td>
+					<td data-label="Pago">${paymentBadge(row.paid)}</td>
+					<td data-label="Comida">${mealBadge(row.meal)}</td>
 				</tr>
 			`;
 		}));
@@ -776,14 +819,14 @@ async function renderCommitteeSections() {
 		}
 
 		const adminHeaders = isAdmin
-			? `<th>Código</th><th>Pago</th><th>QR</th><th>Acción</th>`
-			: `<th>Pago</th>`;
+			? `<th>Código</th><th>Pago</th><th>QR</th><th>Comida</th><th class="action-header">Acción</th>`
+			: `<th>Pago</th><th>Comida</th>`;
 
 		return `
 			<article class="committee-card">
 				<div class="committee-header">
 					<h3>${committee}</h3>
-					<p class="small muted">${rows.length}/20 espacios · ${paidCount} pagados</p>
+					<p class="small muted">${rows.length}/20 espacios · ${paidCount} pagados · ${mealCount} comidas entregadas</p>
 				</div>
 				<div class="table-wrap">
 					<table>
@@ -816,6 +859,7 @@ function startInlineEdit(row) {
 			school: row.school === "Sin escuela" ? "" : row.school,
 			code: row.code,
 			paid: row.paid,
+			meal: row.meal,
 		},
 	};
 }
@@ -864,18 +908,23 @@ async function saveInlineEdit(id) {
 		school: draft.school,
 		code: nextCode,
 		paid: draft.paid,
+		meal: draft.meal,
 	}, current.code);
 
 	if (!validateEdition(next)) {
 		return;
 	}
 
-	await saveRecord(next);
-	if (!cloudEnabled) {
-		delegates[index] = next;
+	try {
+		await saveRecord(next);
+	} catch (err) {
+		alert("No se pudo guardar en Firebase. Revisa reglas/permisos y vuelve a intentar.");
+		showToast("Error al guardar");
+		return;
 	}
 	editingState = null;
 	await renderCommitteeSections();
+	showToast("Cambios guardados ✓");
 }
 
 function parseScannedCode(decodedText) {
@@ -999,7 +1048,14 @@ committeeSections.addEventListener("change", async (event) => {
 
 	const id = target.dataset.id;
 	const field = target.dataset.editField;
-	if (!editingState || editingState.id !== id || field !== "paid") return;
+	if (!editingState || editingState.id !== id || !field) return;
+
+	if (field === "meal") {
+		editingState.draft.meal = target.value === "yes";
+		return;
+	}
+
+	if (field !== "paid") return;
 
 	const paidNow = target.value === "yes";
 	editingState.draft.paid = paidNow;
@@ -1047,7 +1103,10 @@ committeeSections.addEventListener("click", async (event) => {
 		if (!row) return;
 		if (!row.paid) {
 			previewState = null;
-			qrPreview.innerHTML = '<div class="qr-panel-empty"><strong>NO PAGÓ:</strong> este registro no tiene QR disponible.</div>';
+			if (qrPreview) {
+				qrPreview.innerHTML = '<div class="qr-panel-empty"><strong>NO PAGÓ:</strong> este registro no tiene QR disponible.</div>';
+			}
+			openQrModal();
 			return;
 		}
 
@@ -1086,6 +1145,7 @@ committeeSections.addEventListener("click", async (event) => {
 				</div>
 			</div>
 		`;
+		openQrModal();
 		return;
 	}
 
@@ -1107,6 +1167,26 @@ qrPreview.addEventListener("click", async (event) => {
 	else if (action === "qr-download") await shareCurrentQr("download");
 });
 
+if (qrModal) {
+	qrModal.addEventListener("click", (event) => {
+		const target = event.target;
+		if (!(target instanceof HTMLElement)) return;
+		if (target.dataset.action === "close-qr-modal" || target.id === "qrModal") {
+			closeQrModal();
+		}
+	});
+}
+
+if (qrModalClose) {
+	qrModalClose.addEventListener("click", closeQrModal);
+}
+
+document.addEventListener("keydown", (event) => {
+	if (event.key === "Escape" && qrModal && !qrModal.hidden) {
+		closeQrModal();
+	}
+});
+
 searchInput.addEventListener("input", async (event) => {
 	const target = event.target;
 	if (!(target instanceof HTMLInputElement)) return;
@@ -1121,6 +1201,7 @@ clearSearchBtn.addEventListener("click", async () => {
 });
 
 async function initApp() {
+	closeQrModal();
 	initFirebase();
 	initAuth();
 }
