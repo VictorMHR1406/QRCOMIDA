@@ -490,7 +490,13 @@ td {
 
 /* ── QR ── */
 .qr-cell {
-  min-width: 80px;
+  min-width: 168px;
+}
+
+.qr-hidden-badge {
+  white-space: normal;
+  text-align: center;
+  line-height: 1.2;
 }
 
 .qr-box {

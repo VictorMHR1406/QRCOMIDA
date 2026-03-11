@@ -9,7 +9,10 @@ service cloud.firestore {
           'victorbanco132@gmail.com',
           'andresrj@trinityschool.mx',
           'diegodt@trinityschool.mx',
-          'vivianabj@trinityschool.mx'
+          'vivianabj@trinityschool.mx',
+          'valeriahu@trinityschool.mx',
+          'enriquesc@trinityschool.mx',
+          'laurocr@trinityschool.mx'
         ];
     }
 

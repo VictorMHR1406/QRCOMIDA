@@ -347,14 +347,6 @@ async function disconnectCloud(silent = false) {
 	if (!silent) {
 		updateCloudStatus("Sincronización detenida. Cambios nuevos quedan solo en este dispositivo.");
 	}
-
-	if (firebaseApp) {
-		try {
-			await firebaseApp.delete();
-		} catch {
-		}
-		firebaseApp = null;
-	}
 }
 
 async function connectCloud() {
@@ -438,6 +430,9 @@ async function showApp(user) {
 async function signInWithGoogle() {
 	const noteEl = document.getElementById("googleSignInNote");
 	if (!firebaseApp) {
+		initFirebase();
+	}
+	if (!firebaseApp) {
 		if (noteEl) {
 			noteEl.textContent = "⚠️ Firebase no configurado — completa FIREBASE_CONFIG en app.js con tus credenciales del proyecto.";
 			noteEl.hidden = false;
@@ -460,6 +455,9 @@ async function signInWithGoogle() {
 }
 
 async function signInAsGuest() {
+	if (!firebaseApp) {
+		initFirebase();
+	}
 	if (!firebaseApp) {
 		// No Firebase configured — enter local-only guest mode directly
 		const localGuest = { isAnonymous: true, email: null };
@@ -708,7 +706,7 @@ function showToast(msg) {
 
 function getQrCellHtml(row) {
 	if (!row.paid) {
-		return '<span class="badge warn">QR oculto por NO PAGO</span>';
+		return '<span class="badge warn qr-hidden-badge">QR oculto (NO PAGO)</span>';
 	}
 	return `<button type="button" data-action="view-qr" data-id="${row.id}">Ver QR</button>`;
 }
