@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Registro de Delegados con QR</title>
+	<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+	<!-- Login overlay -->
+	<div id="loginOverlay" class="login-overlay">
+		<div class="login-card">
+			<div class="login-logo">🌐</div>
+			<h2>Registro de comida de Delegados</h2>
+			<p class="login-sub">Modelo de Naciones Unidas · COMIDA</p>
+			<button id="googleSignInBtn" class="login-btn primary" type="button">
+				<svg width="18" height="18" viewBox="0 0 48 48" style="vertical-align:middle;margin-right:8px"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.34-8.16 2.34-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/><path fill="none" d="M0 0h48v48H0z"/></svg>
+				Iniciar sesión con Google
+			</button>
+			<p id="googleSignInNote" class="login-error" hidden></p>
+			<button id="guestSignInBtn" class="login-btn" type="button">Continuar como invitado</button>
+			<p class="login-note">Solo administradores pueden editar registros y ver QR.</p>
+		</div>
+	</div>
+
+	<!-- User bar (visible after login) -->
+	<div id="userBar" class="user-bar" hidden>
+		<div class="user-info">
+			<span id="userRoleBadge" class="badge"></span>
+			<span id="userEmail" class="user-email"></span>
+		</div>
+		<button id="signOutBtn" type="button" class="signout-btn">Cerrar sesión</button>
+	</div>
+
+	<div id="appContent" class="container" hidden>
+		<h1>Registro de Delegados con QR</h1>
+		<p>
+			Panel único de registro: 100 espacios en total (20 por comité). Aquí solo se edita y se valida pago/QR.
+		</p>
+		<p id="cloudStatus" class="realtime-note">
+			Todo está conectado en tiempo real y cualquier cambio se refleja al instante.
+		</p>
+
+		<section id="scannerSection" class="card scanner section-spacer">
+			<h2>Lector QR</h2>
+			<p class="small muted">Escanea para validar: QR encontrado (pagado), NO PAGADO o QR no encontrado.</p>
+			<div id="reader"></div>
+			<div class="actions">
+				<button id="startScannerBtn" class="primary" type="button">Iniciar cámara</button>
+				<button id="stopScannerBtn" type="button" disabled>Detener cámara</button>
+			</div>
+			<div id="scanResult" class="result">Aún no se ha escaneado ningún código.</div>
+			<div id="qrPreview" class="result">Selecciona “Ver QR” en un registro pagado para visualizarlo aquí.</div>
+		</section>
+
+		<section class="card section-spacer">
+			<h2>Registros</h2>
+			<p class="small muted">Edita directo en cada fila. Al cambiar a YA PAGÓ se genera automáticamente un nuevo código y aparece la opción Ver QR.</p>
+			<div class="actions no-margin">
+				<input id="searchInput" placeholder="Buscar por delegado, delegación o escuela" aria-label="Buscar registros" />
+				<button id="clearSearchBtn" type="button">Limpiar búsqueda</button>
+			</div>
+			<div id="committeeSections" class="committee-sections">
+				<p class="muted">Sin registros.</p>
+			</div>
+		</section>
+	</div><!-- /appContent -->
+
+	<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+	<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+	<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+	<script src="app.js"></script>
+</body>
+</html>

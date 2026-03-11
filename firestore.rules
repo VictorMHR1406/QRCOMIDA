@@ -1,0 +1,52 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAdmin() {
+      return request.auth != null
+        && !request.auth.token.firebase.sign_in_provider.matches('anonymous')
+        && request.auth.token.email in [
+          'victorbanco132@gmail.com',
+          'andresrj@trinityschool.mx',
+          'diegodt@trinityschool.mx'
+        ];
+    }
+
+    function isValidCommittee(value) {
+      return value in ['GA', 'SC', 'ECOSOC', 'UNESCO', 'CIJ'];
+    }
+
+    function isValidDelegateDoc() {
+      return request.resource.data.keys().hasOnly([
+        'committee',
+        'delegation',
+        'delegateName',
+        'school',
+        'code',
+        'paid'
+      ])
+      && request.resource.data.committee is string
+      && isValidCommittee(request.resource.data.committee)
+      && request.resource.data.delegation is string
+      && request.resource.data.delegation.size() > 0
+      && request.resource.data.delegation.size() <= 140
+      && request.resource.data.delegateName is string
+      && request.resource.data.delegateName.size() <= 140
+      && request.resource.data.school is string
+      && request.resource.data.school.size() <= 140
+      && request.resource.data.code is string
+      && request.resource.data.code.size() >= 4
+      && request.resource.data.code.size() <= 180
+      && request.resource.data.paid is bool;
+    }
+
+    match /delegates/{docId} {
+      // Anyone authenticated (including anonymous) can read
+      allow read: if request.auth != null;
+      // Only admins with valid data can write
+      allow create, update: if isAdmin() && isValidDelegateDoc();
+      // No one can delete
+      allow delete: if false;
+    }
+  }
+}

@@ -1,0 +1,695 @@
+/* ── Design tokens ── */
+:root {
+  color-scheme: light;
+  --bg: #f5f7fb;
+  --card: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --primary: #2563eb;
+  --primary-dark: #1e40af;
+  --ok-bg: #dcfce7;
+  --ok-text: #166534;
+  --warn-bg: #fee2e2;
+  --warn-text: #991b1b;
+  --border: #d1d5db;
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* ── Typography ── */
+h1 {
+  margin: 0 0 10px;
+  font-size: clamp(1.25rem, 4vw, 1.8rem);
+  line-height: 1.2;
+}
+
+h2 {
+  margin: 0 0 8px;
+  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+}
+
+h3 {
+  margin: 0;
+  font-size: clamp(0.88rem, 2vw, 1rem);
+}
+
+p {
+  margin-top: 0;
+  color: var(--muted);
+}
+
+/* ── Login overlay ── */
+.login-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 16px;
+}
+
+.login-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: clamp(24px, 6vw, 44px) clamp(20px, 6vw, 40px);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+
+.login-logo {
+  font-size: clamp(2rem, 8vw, 3rem);
+  margin-bottom: 8px;
+  line-height: 1;
+}
+
+.login-card h2 {
+  font-size: clamp(1.2rem, 4vw, 1.5rem);
+  margin: 0 0 4px;
+  color: var(--text);
+}
+
+.login-sub {
+  font-size: clamp(0.78rem, 2vw, 0.88rem);
+  color: var(--muted);
+  margin: 0 0 24px;
+}
+
+.login-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: 10px;
+  font-size: clamp(0.88rem, 2.5vw, 0.97rem);
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 10px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text);
+  transition: background 0.15s, transform 0.08s;
+  touch-action: manipulation;
+  min-height: 48px;
+}
+
+.login-btn:active {
+  transform: scale(0.98);
+}
+
+.login-btn.primary {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.login-btn.primary:hover,
+.login-btn.primary:focus-visible {
+  background: var(--primary-dark);
+}
+
+.login-btn:not(.primary):hover,
+.login-btn:not(.primary):focus-visible {
+  background: #f3f4f6;
+}
+
+.login-note {
+  font-size: clamp(0.72rem, 2vw, 0.8rem);
+  color: var(--muted);
+  margin: 12px 0 0;
+}
+
+/* ── User bar ── */
+.user-bar {
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  padding: 8px clamp(12px, 4vw, 20px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: clamp(0.78rem, 2vw, 0.88rem);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  flex-wrap: wrap;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.user-email {
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: min(200px, 40vw);
+}
+
+.signout-btn {
+  padding: 6px 12px;
+  font-size: clamp(0.75rem, 2vw, 0.82rem);
+  background: #f3f4f6;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  min-height: 36px;
+  touch-action: manipulation;
+}
+
+.signout-btn:hover {
+  background: #e5e7eb;
+}
+
+/* ── App container ── */
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: clamp(12px, 4vw, 24px);
+}
+
+/* ── Cards ── */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: clamp(12px, 3vw, 18px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.section-spacer {
+  margin-top: clamp(12px, 3vw, 18px);
+}
+
+/* ── Forms / inputs ── */
+label {
+  display: block;
+  font-size: 0.88rem;
+  margin-bottom: 4px;
+  color: #374151;
+  font-weight: 600;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-size: 1rem;
+  background: #fff;
+  color: var(--text);
+  -webkit-appearance: none;
+  appearance: none;
+  min-height: 44px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+}
+
+textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+/* ── Buttons ── */
+button {
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 9px 14px;
+  font-size: clamp(0.82rem, 2vw, 0.9rem);
+  cursor: pointer;
+  background: #e5e7eb;
+  color: #111827;
+  touch-action: manipulation;
+  min-height: 40px;
+  transition: background 0.12s;
+}
+
+button.primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+button.primary:hover {
+  background: var(--primary-dark);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Actions row ── */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  align-items: center;
+}
+
+.actions.no-margin {
+  margin: 0;
+}
+
+#searchInput {
+  flex: 1 1 160px;
+  min-width: 120px;
+}
+
+/* ── Notes / banners ── */
+.realtime-note {
+  margin: 0 0 12px;
+  padding: 10px 14px;
+  border: 1px solid #bfdbfe;
+  border-radius: var(--radius-sm);
+  background: #eff6ff;
+  color: #1e3a8a;
+  font-size: clamp(0.78rem, 2vw, 0.9rem);
+}
+
+.guest-notice {
+  margin: 0 0 10px;
+  padding: 10px 12px;
+  border: 1px solid #fde68a;
+  border-radius: var(--radius-sm);
+  background: #fffbeb;
+  color: #92400e;
+  font-size: 0.88rem;
+}
+
+/* ── Badge ── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 3px 9px;
+  font-size: clamp(0.7rem, 1.8vw, 0.78rem);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.badge.ok {
+  background: var(--ok-bg);
+  color: var(--ok-text);
+}
+
+.badge.warn {
+  background: var(--warn-bg);
+  color: var(--warn-text);
+}
+
+/* ── Scanner ── */
+.scanner {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#reader {
+  width: 100%;
+  min-height: 220px;
+  border: 2px dashed var(--border);
+  border-radius: 10px;
+  padding: 4px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.result {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  background: #fafafa;
+  font-size: clamp(0.82rem, 2vw, 0.92rem);
+  word-break: break-word;
+}
+
+/* ── Committee sections ── */
+.committee-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.committee-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: clamp(10px, 2.5vw, 14px);
+  background: #fff;
+  overflow: hidden;
+}
+
+.committee-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+/* ── Table ── */
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 6px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: clamp(0.76rem, 1.8vw, 0.88rem);
+  /* no fixed min-width — horizontal scroll handles it */
+}
+
+th,
+td {
+  border-bottom: 1px solid #e5e7eb;
+  padding: clamp(6px, 1.5vw, 10px);
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: #f9fafb;
+  font-weight: 700;
+  color: #374151;
+  white-space: nowrap;
+}
+
+td {
+  word-break: break-word;
+}
+
+/* ── Inline edit row ── */
+.editing-row {
+  background: #f8fafc;
+}
+
+.inline-input {
+  width: 100%;
+  min-width: 70px;
+  padding: 5px 7px;
+  font-size: clamp(0.76rem, 1.8vw, 0.84rem);
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  min-height: 34px;
+}
+
+/* ── QR ── */
+.qr-cell {
+  min-width: 80px;
+}
+
+.qr-box {
+  width: 88px;
+  height: 88px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #fff;
+}
+
+.qr-box img,
+.qr-box canvas {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ── Utility ── */
+.muted { color: var(--muted); }
+.small { font-size: clamp(0.72rem, 1.8vw, 0.8rem); }
+.mt-10 { margin-top: 10px; }
+
+.divider {
+  margin: 14px 0;
+  border: none;
+  border-top: 1px solid #e5e7eb;
+}
+
+.scan-status { margin-top: 6px; }
+
+/* ── Responsive: medium (tablet 768px+) ── */
+@media (min-width: 768px) {
+  .scanner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  #reader {
+    grid-column: 1 / -1;
+  }
+
+  .actions {
+    flex-wrap: nowrap;
+  }
+}
+
+/* ── Responsive: desktop grid (1024px+) ── */
+@media (min-width: 1024px) {
+  .committee-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(540px, 1fr));
+    align-items: start;
+  }
+}
+
+/* ── Responsive: small phones (max 480px) ── */
+@media (max-width: 480px) {
+  button {
+    min-height: 44px;
+    padding: 10px 12px;
+  }
+
+  .login-card {
+    border-radius: 16px;
+    padding: 24px 18px;
+  }
+
+  .user-email {
+    display: none;
+  }
+
+  th, td {
+    padding: 6px 5px;
+  }
+
+  .qr-box {
+    width: 68px;
+    height: 68px;
+  }
+
+  .inline-input {
+    min-width: 60px;
+  }
+}
+
+/* ── Login inline error ── */
+.login-error {
+  font-size: 0.8rem;
+  color: #991b1b;
+  background: #fee2e2;
+  border: 1px solid #fca5a5;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  text-align: left;
+  line-height: 1.4;
+}
+
+/* ── QR panel ── */
+.qr-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.qr-panel-header {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.qr-panel-img-wrap {
+  flex-shrink: 0;
+  width: 120px;
+  height: 120px;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr-panel-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.qr-panel-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.qr-info-name {
+  font-weight: 700;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  color: var(--text);
+  word-break: break-word;
+}
+
+.qr-info-row {
+  font-size: clamp(0.78rem, 2vw, 0.88rem);
+  color: var(--muted);
+  word-break: break-word;
+}
+
+.qr-panel-empty {
+  color: var(--warn-text);
+  font-weight: 500;
+  padding: 4px 0;
+}
+
+/* ── QR share grid ── */
+.qr-share-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.qr-share-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 12px 8px;
+  border-radius: 10px;
+  font-size: clamp(0.76rem, 2vw, 0.84rem);
+  font-weight: 600;
+  background: #f3f4f6;
+  color: var(--text);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.12s, transform 0.07s;
+  touch-action: manipulation;
+  min-height: 64px;
+}
+
+.qr-share-btn:hover {
+  background: #e5e7eb;
+}
+
+.qr-share-btn:active {
+  transform: scale(0.96);
+}
+
+.qr-share-btn.qr-share-wa {
+  background: #dcfce7;
+  border-color: #86efac;
+  color: #14532d;
+}
+
+.qr-share-btn.qr-share-wa:hover {
+  background: #bbf7d0;
+}
+
+.qr-share-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+/* ── Toast notification ── */
+.qr-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(16px);
+  background: #1f2937;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+  z-index: 9998;
+  white-space: nowrap;
+  max-width: 90vw;
+  text-align: center;
+}
+
+.qr-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* QR panel stacks on very small phones */
+@media (max-width: 380px) {
+  .qr-panel-header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .qr-panel-img-wrap {
+    width: 140px;
+    height: 140px;
+  }
+
+  .qr-share-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
