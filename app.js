@@ -197,6 +197,9 @@ let cloudUnsubscribe = null;
 let cloudCollection = FIREBASE_COLLECTION;
 let firebaseApp = null;
 let renderCycle = 0;
+let fixedRowsRepairPending = true;
+
+const FIXED_ID_COMMITTEES = new Set(["PROFESORES", "HIGHCOMMAND", "MESAS"]);
 
 function openQrModal() {
 	if (!qrModal) return;
@@ -393,6 +396,49 @@ async function seedMissingCloudRows(rows) {
 	await batch.commit();
 }
 
+function isSameDelegateDoc(existing, nextDoc) {
+	if (!existing) return false;
+	return String(existing.committee || "") === nextDoc.committee
+		&& String(existing.delegation || "") === nextDoc.delegation
+		&& String(existing.delegateName || "") === nextDoc.delegateName
+		&& String(existing.school || "") === nextDoc.school
+		&& String(existing.code || "") === nextDoc.code
+		&& Boolean(existing.paid) === nextDoc.paid
+		&& Boolean(existing.meal) === nextDoc.meal;
+}
+
+async function repairFixedCommitteeRows(cloudRows) {
+	if (!cloudDb || !isAdmin || !fixedRowsRepairPending) return false;
+	const canonicalRows = buildBaseRecords().filter((row) => FIXED_ID_COMMITTEES.has(row.committee));
+	const byId = new Map(cloudRows.map((row) => [String(row.id || ""), row]));
+	const batch = cloudDb.batch();
+	const collectionRef = cloudDb.collection(cloudCollection);
+	let writes = 0;
+
+	for (const canonical of canonicalRows) {
+		const existing = byId.get(canonical.id);
+		const doc = {
+			committee: canonical.committee,
+			delegation: canonical.delegation,
+			delegateName: canonical.delegateName,
+			school: canonical.school,
+			code: (existing && String(existing.code || "").trim()) ? String(existing.code) : canonical.code,
+			paid: typeof existing?.paid === "boolean" ? existing.paid : false,
+			meal: typeof existing?.meal === "boolean" ? existing.meal : false,
+		};
+
+		if (!isSameDelegateDoc(existing, doc)) {
+			batch.set(collectionRef.doc(canonical.id), doc, { merge: true });
+			writes += 1;
+		}
+	}
+
+	fixedRowsRepairPending = false;
+	if (!writes) return false;
+	await batch.commit();
+	return true;
+}
+
 async function disconnectCloud(silent = false) {
 	if (cloudUnsubscribe) {
 		cloudUnsubscribe();
@@ -400,6 +446,7 @@ async function disconnectCloud(silent = false) {
 	}
 	cloudEnabled = false;
 	cloudDb = null;
+	fixedRowsRepairPending = true;
 	if (!silent) {
 		updateCloudStatus("Sincronización detenida. Cambios nuevos quedan solo en este dispositivo.");
 	}
@@ -425,6 +472,13 @@ async function connectCloud() {
 
 	cloudUnsubscribe = collectionRef.onSnapshot(async (snapshot) => {
 		const cloudRows = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+		try {
+			const repaired = await repairFixedCommitteeRows(cloudRows);
+			if (repaired) return;
+		} catch {
+			fixedRowsRepairPending = false;
+			updateCloudStatus("No se pudo reparar datos de PROFESORES/HIGHCOMMAND/MESAS. Revisa reglas/permisos de Firestore.");
+		}
 		const { merged, missing } = mergeCloudRows(cloudRows);
 		delegates = merged;
 		await renderCommitteeSections();
