@@ -17,7 +17,7 @@ service cloud.firestore {
     }
 
     function isValidCommittee(value) {
-      return value in ['GA', 'SC', 'ECOSOC', 'UNESCO', 'CIJ'];
+      return value in ['GA', 'SC', 'ECOSOC', 'UNESCO', 'CIJ', 'PROFESORES', 'HIGHCOMMAND', 'MESAS'];
     }
 
     function isValidDelegateDoc() {

@@ -51,7 +51,7 @@ const SEED_ROWS = [
 	{ committee: "ECOSOC", delegation: "United States (United States of America)", delegateName: "", school: "" },
 	{ committee: "ECOSOC", delegation: "France (French Republic)", delegateName: "Marcelo Martínez", school: "TRINNITY SCHOOL MX" },
 	{ committee: "ECOSOC", delegation: "Italy (Italian Republic)", delegateName: "Vale León", school: "TRINITYSCHOOL MX" },
-	{ committee: "ECOSOC", delegation: "Kenya (Republic of Kenya)", delegateName: "", school: "" },
+	{ committee: "ECOSOC", delegation: "Kenya (Republic of Kenya)", delegateName: "Nicolas Villa Pedraza", school: "TRINITYSCHOOL MX" },
 
 	{ committee: "UNESCO", delegation: "Commonwealth of Australia", delegateName: "Aguirre López Dania Ximena", school: "TRINITY SCHOOL MX" },
 	{ committee: "UNESCO", delegation: "Kingdom of Spain", delegateName: "Del Castillo Velasco Cholula Franco", school: "TRINITY SCHOOL MX" },
@@ -88,10 +88,61 @@ const SEED_ROWS = [
 	{ committee: "CIJ", delegation: "Siria (República Árabe Siria)", delegateName: "Valeria Fernández Gutiérrez", school: "Liceo Británico de México" },
 	{ committee: "CIJ", delegation: "Irak (República de Irak)", delegateName: "Joseph", school: "San Joseph" },
 	{ committee: "CIJ", delegation: "Afganistán (República Islámica de Afganistán)", delegateName: "", school: "San Joseph" },
+
+	{ committee: "PROFESORES", delegation: "PROFESORES", delegateName: "Aldo Wilfrido Meza Gaspar", school: "TRINITY SCHOOL MX" },
+	{ committee: "PROFESORES", delegation: "PROFESORES", delegateName: "Ana Paola Guzmán Bello", school: "TRINITY SCHOOL MX" },
+	{ committee: "PROFESORES", delegation: "PROFESORES", delegateName: "Andrés Galiote Mendoza", school: "TRINITY SCHOOL MX" },
+	{ committee: "PROFESORES", delegation: "PROFESORES", delegateName: "Carlos Josué Flores Olvera", school: "TRINITY SCHOOL MX" },
+	{ committee: "PROFESORES", delegation: "PROFESORES", delegateName: "Carolina Guerrero Valencia", school: "TRINITY SCHOOL MX" },
+	{ committee: "PROFESORES", delegation: "PROFESORES", delegateName: "Claudia Marcela Bello de la Cruz", school: "TRINITY SCHOOL MX" },
+	{ committee: "PROFESORES", delegation: "PROFESORES", delegateName: "Eliud Domínguez Dimas", school: "TRINITY SCHOOL MX" },
+	{ committee: "PROFESORES", delegation: "PROFESORES", delegateName: "Fernando de Jesús Guzmán Bretón", school: "TRINITY SCHOOL MX" },
+	{ committee: "PROFESORES", delegation: "PROFESORES", delegateName: "Guillermo Cervantes López", school: "TRINITY SCHOOL MX" },
+	{ committee: "PROFESORES", delegation: "PROFESORES", delegateName: "Jorge Ramos Bello", school: "TRINITY SCHOOL MX" },
+	{ committee: "PROFESORES", delegation: "PROFESORES", delegateName: "María Fernanda Guzmán Bello", school: "TRINITY SCHOOL MX" },
+	{ committee: "PROFESORES", delegation: "PROFESORES", delegateName: "Maricruz Palafox Plata", school: "TRINITY SCHOOL MX" },
+	{ committee: "PROFESORES", delegation: "PROFESORES", delegateName: "Marilian Molina Aguilar", school: "TRINITY SCHOOL MX" },
+	{ committee: "PROFESORES", delegation: "PROFESORES", delegateName: "Mendoza Moctezuma", school: "TRINITY SCHOOL MX" },
+	{ committee: "PROFESORES", delegation: "PROFESORES", delegateName: "Miguel Ángel Esses Castillo", school: "TRINITY SCHOOL MX" },
+	{ committee: "PROFESORES", delegation: "PROFESORES", delegateName: "Mónica Lourdes", school: "TRINITY SCHOOL MX" },
+	{ committee: "PROFESORES", delegation: "PROFESORES", delegateName: "Perla (Petra) Pérez Palacios", school: "TRINITY SCHOOL MX" },
+	{ committee: "PROFESORES", delegation: "PROFESORES", delegateName: "Viviana Lizeth Bello Jaimes", school: "TRINITY SCHOOL MX" },
+	{ committee: "PROFESORES", delegation: "PROFESORES", delegateName: "Maria Fenanda Sanchez Diaz", school: "TRINITY SCHOOL MX" },
+	{ committee: "PROFESORES", delegation: "PROFESORES", delegateName: "Rocio Solva Espinoza", school: "TRINITY SCHOOL MX" },
+	{ committee: "PROFESORES", delegation: "PROFESORES", delegateName: "Lorena Contreras Vazquez", school: "TRINITY SCHOOL MX" },
+
+	{ committee: "HIGHCOMMAND", delegation: "HIGHCOMMAND", delegateName: "Victor Manuel Herrera Ruiz", school: "TRINITY SCHOOL MX" },
+	{ committee: "HIGHCOMMAND", delegation: "HIGHCOMMAND", delegateName: "Lauro Emiliano Castillo Robles", school: "TRINITY SCHOOL MX" },
+	{ committee: "HIGHCOMMAND", delegation: "HIGHCOMMAND", delegateName: "Diego Diaz Tovar", school: "TRINITY SCHOOL MX" },
+	{ committee: "HIGHCOMMAND", delegation: "HIGHCOMMAND", delegateName: "Alexandra Santizo Elizondo", school: "TRINITY SCHOOL MX" },
+	{ committee: "HIGHCOMMAND", delegation: "HIGHCOMMAND", delegateName: "Alexa Irigoyen", school: "TRINITY SCHOOL MX" },
+	{ committee: "HIGHCOMMAND", delegation: "HIGHCOMMAND", delegateName: "Enrique Sanchez Cervantes", school: "TRINITY SCHOOL MX" },
+	{ committee: "HIGHCOMMAND", delegation: "HIGHCOMMAND", delegateName: "Valeria Herrera Ulloa", school: "TRINITY SCHOOL MX" },
+	{ committee: "HIGHCOMMAND", delegation: "HIGHCOMMAND", delegateName: "Andres Leonardo de la Rosa Jimenez", school: "TRINITY SCHOOL MX" },
+
+	{ committee: "MESAS", delegation: "MESAS", delegateName: "Heber Jesus Jimenez Escalera", school: "TRINITY SCHOOL MX" },
+	{ committee: "MESAS", delegation: "MESAS", delegateName: "Michelle Cuero Mares", school: "TRINITY SCHOOL MX" },
+	{ committee: "MESAS", delegation: "MESAS", delegateName: "Maria Jose Martinez Hernandez", school: "TRINITY SCHOOL MX" },
+	{ committee: "MESAS", delegation: "MESAS", delegateName: "Enrique Quintana Ocon", school: "TRINITY SCHOOL MX" },
+	{ committee: "MESAS", delegation: "MESAS", delegateName: "Ximena Garcia Malagon", school: "TRINITY SCHOOL MX" },
+	{ committee: "MESAS", delegation: "MESAS", delegateName: "Carlos Emiliano Arroyo Soto", school: "TRINITY SCHOOL MX" },
+	{ committee: "MESAS", delegation: "MESAS", delegateName: "Maria Jose Estrada Planell", school: "TRINITY SCHOOL MX" },
+	{ committee: "MESAS", delegation: "MESAS", delegateName: "Angel del Valle Leal", school: "TRINITY SCHOOL MX" },
+	{ committee: "MESAS", delegation: "MESAS", delegateName: "Aranza Prieto Aguibar", school: "TRINITY SCHOOL MX" },
+	{ committee: "MESAS", delegation: "MESAS", delegateName: "Emiliano Ponce Esparragosa", school: "TRINITY SCHOOL MX" },
 ];
 
-const COMMITTEES = ["GA", "SC", "ECOSOC", "UNESCO", "CIJ"];
-const TARGET_PER_COMMITTEE = 20;
+const COMMITTEE_TARGETS = {
+	GA: 20,
+	SC: 20,
+	ECOSOC: 20,
+	UNESCO: 20,
+	CIJ: 20,
+	PROFESORES: 21,
+	HIGHCOMMAND: 8,
+	MESAS: 10,
+};
+const COMMITTEES = Object.keys(COMMITTEE_TARGETS);
 const FIREBASE_CONFIG = {
 	apiKey: "AIzaSyBXpphK27BdlpZ612ocmE8dHbGkBjA5Eys",
 	authDomain: "comida-ac4a7.firebaseapp.com",
@@ -145,6 +196,7 @@ let cloudDb = null;
 let cloudUnsubscribe = null;
 let cloudCollection = FIREBASE_COLLECTION;
 let firebaseApp = null;
+let renderCycle = 0;
 
 function openQrModal() {
 	if (!qrModal) return;
@@ -224,6 +276,9 @@ function normalizeRecord(data, fallbackCode = "") {
 
 function makeSeedId(committee, delegation, index) {
 	const delegationSlug = slug(delegation) || `slot-${index}`;
+	if (committee === "PROFESORES" || committee === "HIGHCOMMAND" || committee === "MESAS") {
+		return `${committee}__${delegationSlug}_${String(index).padStart(2, "0")}`;
+	}
 	return `${committee}__${delegationSlug}`;
 }
 
@@ -249,7 +304,8 @@ function buildBaseRecords() {
 
 	for (const committee of COMMITTEES) {
 		let current = output.filter((row) => row.committee === committee).length;
-		while (current < TARGET_PER_COMMITTEE) {
+		const target = COMMITTEE_TARGETS[committee] ?? 20;
+		while (current < target) {
 			current += 1;
 			const delegation = `ESPACIO ${String(current).padStart(2, "0")}`;
 			const id = `${committee}__slot_${String(current).padStart(2, "0")}`;
@@ -723,10 +779,19 @@ function getCommitteeRows(committee) {
 	return delegates
 		.filter((row) => matchesSearch(row))
 		.filter((row) => row.committee === committee)
-		.sort((a, b) => a.delegation.localeCompare(b.delegation, "es", { sensitivity: "base" }));
+		.sort((a, b) => {
+			const byDelegation = a.delegation.localeCompare(b.delegation, "es", { sensitivity: "base" });
+			if (byDelegation !== 0) return byDelegation;
+
+			const byName = a.delegateName.localeCompare(b.delegateName, "es", { sensitivity: "base" });
+			if (byName !== 0) return byName;
+
+			return a.id.localeCompare(b.id, "es", { sensitivity: "base" });
+		});
 }
 
 async function renderCommitteeSections() {
+	const cycle = ++renderCycle;
 	const sections = await Promise.all(COMMITTEES.map(async (committee) => {
 		const rows = getCommitteeRows(committee);
 		const paidCount = rows.filter((row) => row.paid).length;
@@ -819,12 +884,13 @@ async function renderCommitteeSections() {
 		const adminHeaders = isAdmin
 			? `<th>Código</th><th>Pago</th><th>QR</th><th>Comida</th><th class="action-header">Acción</th>`
 			: `<th>Pago</th><th>Comida</th>`;
+		const target = COMMITTEE_TARGETS[committee] ?? rows.length;
 
 		return `
 			<article class="committee-card">
 				<div class="committee-header">
 					<h3>${committee}</h3>
-					<p class="small muted">${rows.length}/20 espacios · ${paidCount} pagados · ${mealCount} comidas entregadas</p>
+					<p class="small muted">${rows.length}/${target} espacios · ${paidCount} pagados · ${mealCount} comidas entregadas</p>
 				</div>
 				<div class="table-wrap">
 					<table>
@@ -843,6 +909,9 @@ async function renderCommitteeSections() {
 		`;
 	}));
 
+	if (cycle !== renderCycle) {
+		return;
+	}
 	committeeSections.innerHTML = sections.join("");
 }
 
