@@ -391,7 +391,7 @@ async function seedMissingCloudRows(rows) {
 	const batch = cloudDb.batch();
 	const collectionRef = cloudDb.collection(cloudCollection);
 	for (const row of rows) {
-		batch.set(collectionRef.doc(row.id), toFirestoreDoc(row), { merge: true });
+		batch.set(collectionRef.doc(row.id), toFirestoreDoc(row));
 	}
 	await batch.commit();
 }
@@ -428,7 +428,7 @@ async function repairFixedCommitteeRows(cloudRows) {
 		};
 
 		if (!isSameDelegateDoc(existing, doc)) {
-			batch.set(collectionRef.doc(canonical.id), doc, { merge: true });
+			batch.set(collectionRef.doc(canonical.id), doc);
 			writes += 1;
 		}
 	}
@@ -485,8 +485,9 @@ async function connectCloud() {
 		if (missing.length) {
 			await seedMissingCloudRows(missing);
 		}
-	}, () => {
-		updateCloudStatus("Error en sincronización. Revisa reglas/permisos de Firestore.");
+	}, (error) => {
+		const details = error?.code ? ` (${error.code})` : "";
+		updateCloudStatus(`Error en sincronizacion. Revisa reglas/permisos de Firestore${details}.`);
 	});
 
 	cloudEnabled = true;
@@ -644,9 +645,28 @@ async function saveRecord(next) {
 	}
 
 	if (cloudEnabled && cloudDb) {
-		await cloudDb.collection(cloudCollection).doc(next.id).set(toFirestoreDoc(next), { merge: true });
+		// Full overwrite keeps Firestore docs aligned with strict rules (hasOnly)
+		// and removes legacy extra fields that can block updates globally.
+		await cloudDb.collection(cloudCollection).doc(next.id).set(toFirestoreDoc(next));
 	}
 	saveData();
+}
+
+function describeSaveError(err) {
+	const code = String(err?.code || "").toLowerCase();
+	if (code.includes("permission-denied")) {
+		return "Permiso denegado en Firestore (reglas o correo sin rol admin).";
+	}
+	if (code.includes("failed-precondition")) {
+		return "Firestore requiere configuracion adicional (indice/reglas/precondiciones).";
+	}
+	if (code.includes("unavailable")) {
+		return "Firestore no esta disponible temporalmente. Intenta de nuevo.";
+	}
+	if (code.includes("unauthenticated")) {
+		return "Sesion no autenticada. Cierra sesion y vuelve a entrar con Google.";
+	}
+	return err?.message || "Error desconocido al guardar.";
 }
 
 function paymentBadge(paid) {
@@ -1039,7 +1059,7 @@ async function saveInlineEdit(id) {
 	try {
 		await saveRecord(next);
 	} catch (err) {
-		alert("No se pudo guardar en Firebase. Revisa reglas/permisos y vuelve a intentar.");
+		alert(`No se pudo guardar en Firebase. ${describeSaveError(err)}`);
 		showToast("Error al guardar");
 		return;
 	}
