@@ -160,6 +160,8 @@ const ADMIN_EMAILS = [
     "valeriahu@trinityschool.mx",
     "enriquesc@trinityschool.mx",
     "laurocr@trinityschool.mx",
+	"alexandrase@trinityschool.mx",
+	"maybedmcpremium@gmail.com",
 ];
 
 const committeeSections = document.getElementById("committeeSections");
