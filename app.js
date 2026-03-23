@@ -18,7 +18,7 @@ const SEED_ROWS = [
 	{ committee: "GA", delegation: "India (Republic of India)", delegateName: "Julieta", school: "Trinty School mx" },
 
 	{ committee: "SC", delegation: "French Republic", delegateName: "Ildefonso Chávez Contreras", school: "BENAVENTE" },
-	{ committee: "SC", delegation: "Islamic Republic of Iran", delegateName: "Carlos Ariel Román Ortiz", school: "JUVENTUS" },
+	{ committee: "SC", delegation: "Islamic Republic of Iran", delegateName: "Isabela Adnaloy Alejo Gonzales", school: "JUVENTUS" },
 	{ committee: "SC", delegation: "Islamic Republic of Pakistan", delegateName: "Luciana Victorino Muro", school: "TRINITY SCHOOL MX" },
 	{ committee: "SC", delegation: "Kingdom of Saudi Arabia", delegateName: "Palacios Garita Victoria Simone", school: "TRINITY SCHOOL MX" },
 	{ committee: "SC", delegation: "People's Republic of China", delegateName: "Daniela Román Valadez", school: "Prepa Tec" },
@@ -198,7 +198,7 @@ let cloudUnsubscribe = null;
 let cloudCollection = FIREBASE_COLLECTION;
 let firebaseApp = null;
 let renderCycle = 0;
-const ROSTER_SYNC_FLAG = "comida-roster-sync-20260323-2";
+const ROSTER_SYNC_FLAG = "comida-roster-sync-20260323-3";
 let rosterSyncPending = true;
 
 function hasLocalFlag(key) {
@@ -925,10 +925,18 @@ function matchesSearch(row) {
 	return haystack.includes(searchTerm);
 }
 
+function isPlaceholderRow(row) {
+	return String(row.id || "").includes("__slot_")
+		&& String(row.delegation || "").startsWith("ESPACIO ")
+		&& String(row.delegateName || "") === "Sin nombre"
+		&& String(row.school || "") === "Sin escuela";
+}
+
 function getCommitteeRows(committee) {
 	return delegates
 		.filter((row) => matchesSearch(row))
 		.filter((row) => row.committee === committee)
+		.filter((row) => !isPlaceholderRow(row))
 		.sort((a, b) => {
 			const byDelegation = a.delegation.localeCompare(b.delegation, "es", { sensitivity: "base" });
 			if (byDelegation !== 0) return byDelegation;
