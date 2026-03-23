@@ -6,52 +6,52 @@ const SEED_ROWS = [
 	{ committee: "GA", delegation: "Republic of Guatemala", delegateName: "López Miranda Alonso", school: "TRINITY SCHOOL MX" },
 	{ committee: "GA", delegation: "United Mexican States", delegateName: "Santizo Elizondo María José", school: "TRINITY SCHOOL MX" },
 	{ committee: "GA", delegation: "United States of America", delegateName: "Rendón Puente Sebastian", school: "TRINITY SCHOOL MX" },
-	{ committee: "GA", delegation: "Brazil (Federative Republic of Brazil)", delegateName: "García Taja Victoria", school: "TRINITY SCHOOL MX" },
+	{ committee: "GA", delegation: "Brazil (Federative Republic of Brazil)", delegateName: "Garcia Taja Victoria", school: "TRINITY SCHOOL MX" },
 	{ committee: "GA", delegation: "Japan", delegateName: "Giselle García Cruz", school: "Liceo Británico de México" },
-	{ committee: "GA", delegation: "Republic of the Philippines", delegateName: "Renata Sofia Salazar Mite", school: "Liceo Británico de México" },
+	{ committee: "GA", delegation: "Republic of the Philippines", delegateName: "Renata Sofía Salazar Mitre", school: "Liceo Británico de México" },
 	{ committee: "GA", delegation: "United Kingdom", delegateName: "Marielaine Hernández León", school: "Liceo Británico de México" },
 	{ committee: "GA", delegation: "Russia (Russian Federation)", delegateName: "Amara Louise Camacho Sanchez", school: "TRINITY SCHOOL MX" },
 	{ committee: "GA", delegation: "Nicaragua (Republic of Nicaragua)", delegateName: "Carmina Rosales Jurado", school: "ANROD" },
 	{ committee: "GA", delegation: "Cuba (Republic of Cuba)", delegateName: "Ximena Román", school: "TRINITY SCHOOL MX" },
 	{ committee: "GA", delegation: "Sudan (Republic of the Sudan)", delegateName: "Jose Luis Fuentes Figueroa", school: "BENAVENTE" },
 	{ committee: "GA", delegation: "Venezuela", delegateName: "Sergio Iván Martínez Herrera", school: "BENAVENTE" },
-	{ committee: "GA", delegation: "India (Republic of India)", delegateName: "Julieta", school: "Trinity School mx" },
+	{ committee: "GA", delegation: "India (Republic of India)", delegateName: "Julieta", school: "Trinty School mx" },
 
-	{ committee: "SC", delegation: "French Republic", delegateName: "Ildefonso Chánez Contreras", school: "BENAVENTE" },
-	{ committee: "SC", delegation: "Islamic Republic of Iran", delegateName: "Alejo González Isabella Adnaloy", school: "TRINITY SCHOOL MX" },
-	{ committee: "SC", delegation: "Islamic Republic of Pakistan", delegateName: "Victorino Muro Luciana", school: "TRINITY SCHOOL MX" },
+	{ committee: "SC", delegation: "French Republic", delegateName: "Ildefonso Chávez Contreras", school: "BENAVENTE" },
+	{ committee: "SC", delegation: "Islamic Republic of Iran", delegateName: "Carlos Ariel Román Ortiz", school: "JUVENTUS" },
+	{ committee: "SC", delegation: "Islamic Republic of Pakistan", delegateName: "Luciana Victorino Muro", school: "TRINITY SCHOOL MX" },
 	{ committee: "SC", delegation: "Kingdom of Saudi Arabia", delegateName: "Palacios Garita Victoria Simone", school: "TRINITY SCHOOL MX" },
-	{ committee: "SC", delegation: "People's Republic of China", delegateName: "Pablo Ortega", school: "Prepa Tec" },
+	{ committee: "SC", delegation: "People's Republic of China", delegateName: "Daniela Román Valadez", school: "Prepa Tec" },
 	{ committee: "SC", delegation: "Republic of South Africa", delegateName: "Barroso Conde Ieshua Iahi", school: "TRINITY SCHOOL MX" },
 	{ committee: "SC", delegation: "Republic of the Philippines", delegateName: "Castro Frackiewicz Ian", school: "TRINITY SCHOOL MX" },
 	{ committee: "SC", delegation: "Egypt (Arab Republic of Egypt)", delegateName: "Pérez Garcia Tamara", school: "TRINITY SCHOOL MX" },
 	{ committee: "SC", delegation: "United Kingdom of Great Britain and Northern Ireland", delegateName: "Castillo Robles José Darío", school: "TRINITY SCHOOL MX" },
 	{ committee: "SC", delegation: "India", delegateName: "Barbara Melissa Bonilla Salgado", school: "Liceo Británico de México" },
 	{ committee: "SC", delegation: "United States", delegateName: "Karla Andrea Limón Castañeda", school: "Liceo Británico de México" },
-	{ committee: "SC", delegation: "Republic of Türkiye", delegateName: "Daniela Román Valadez", school: "Prepa Tec" },
+	{ committee: "SC", delegation: "Republic of Türkiye", delegateName: "Jeshua Guarevera", school: "BENAVENTE" },
 	{ committee: "SC", delegation: "Republic of Singapore", delegateName: "Jose Eduardo Jimenez", school: "BENAVENTE" },
-	{ committee: "SC", delegation: "Russia (Russian Federation)", delegateName: "Rodrigo Nicolai Bravo Robles", school: "Prepa Tec" },
+	{ committee: "SC", delegation: "Russia (Russian Federation)", delegateName: "Pablo Ortega", school: "Prepa Tec" },
 	{ committee: "SC", delegation: "Mexico (United Mexican States)", delegateName: "Zoe Gasca", school: "TRINITY SCHOOL MX" },
 	{ committee: "SC", delegation: "Laos", delegateName: "Jorge Santiago Carreño", school: "ANROD" },
 	{ committee: "SC", delegation: "Indonesia (Republic of Indonesia)", delegateName: "Isabela Camacho", school: "TRINITY SCHOOL MX" },
 
-	{ committee: "ECOSOC", delegation: "Arab Republic of Egypt", delegateName: "Santiago David Arzamendi Carillo", school: "TRINITY SCHOOL MX" },
+	{ committee: "ECOSOC", delegation: "Arab Republic of Egypt", delegateName: "Santiago David Arzamendi Carrillo", school: "TRINITY SCHOOL MX" },
 	{ committee: "ECOSOC", delegation: "Federal Republic of Germany", delegateName: "Fojaco Banuet Eugenio", school: "TRINITY SCHOOL MX" },
 	{ committee: "ECOSOC", delegation: "Federal Republic of Nigeria", delegateName: "Campos Castillo Diana Livia", school: "TRINITY SCHOOL MX" },
-	{ committee: "ECOSOC", delegation: "Japan", delegateName: "Marron Rivera Hanan", school: "TRINITY SCHOOL MX" },
+	{ committee: "ECOSOC", delegation: "Japan", delegateName: "Marrón Rivera Haniah", school: "TRINITY SCHOOL MX" },
 	{ committee: "ECOSOC", delegation: "Kingdom of Morocco", delegateName: "Ramírez Ibarra José Miguel", school: "TRINITY SCHOOL MX" },
 	{ committee: "ECOSOC", delegation: "Kingdom of Spain", delegateName: "Infante Aguilar Arturo", school: "TRINITY SCHOOL MX" },
 	{ committee: "ECOSOC", delegation: "New Zealand", delegateName: "Herrera Michel Mateo Uriel", school: "TRINITY SCHOOL MX" },
 	{ committee: "ECOSOC", delegation: "Republic of South Africa", delegateName: "Prieto Egúibar Emilio", school: "TRINITY SCHOOL MX" },
-	{ committee: "ECOSOC", delegation: "Russian Federation", delegateName: "De la Pedra Esses Heriberto Mario", school: "TRINITY SCHOOL MX" },
+	{ committee: "ECOSOC", delegation: "Russian Federation", delegateName: "De la Piedra Esses Heriberto Mario", school: "TRINITY SCHOOL MX" },
 	{ committee: "ECOSOC", delegation: "Democratic Republic of the Congo", delegateName: "Maria Lizeth", school: "BUAP" },
-	{ committee: "ECOSOC", delegation: "People's Republic of China", delegateName: "Izral Ortega", school: "BUAP Prepa" },
-	{ committee: "ECOSOC", delegation: "Sudan (Republic of the Sudan)", delegateName: "Regina Limón Sánchez ", school: "ANAHUAC" },
+	{ committee: "ECOSOC", delegation: "People's Republic of China", delegateName: "Pablo Flores", school: "UMAD" },
+	{ committee: "ECOSOC", delegation: "Sudan (Republic of the Sudan)", delegateName: "Regina Limón Sánchez", school: "Anahuac" },
 	{ committee: "ECOSOC", delegation: "United Kingdom (United Kingdom of Great Britain and Northern Ireland)", delegateName: "Farah Ceballos", school: "TRINITY SCHOOL MX" },
-	{ committee: "ECOSOC", delegation: "United States (United States of America)", delegateName: "Itzel Ortega ", school: "BUAP" },
-	{ committee: "ECOSOC", delegation: "France (French Republic)", delegateName: "Villa Pedraza Nicolas", school: "TRINNITY SCHOOL MX" },
-	{ committee: "ECOSOC", delegation: "Italy (Italian Republic)", delegateName: "Shara Alkaid Huicochea Cárdenas", school: "ANAHUAC" },
-	{ committee: "ECOSOC", delegation: "Kenya (Republic of Kenya)", delegateName: "Gustavo Vidal Franco Cortés", school: "ANAHUAC" },
+	{ committee: "ECOSOC", delegation: "United States (United States of America)", delegateName: "Itzel Ortega", school: "BUAP prepa" },
+	{ committee: "ECOSOC", delegation: "France (French Republic)", delegateName: "Villa Pedraza Nicolas (NUEVO)", school: "TRINITY SCHOOL MX" },
+	{ committee: "ECOSOC", delegation: "Italy (Italian Republic)", delegateName: "Shara Alkaid Huicochea Cárdenas", school: "Anahuac" },
+	{ committee: "ECOSOC", delegation: "Kenya (Republic of Kenya)", delegateName: "Gustavo Vidal Franco Cortés", school: "Anahuac" },
 
 	{ committee: "UNESCO", delegation: "Commonwealth of Australia", delegateName: "Aguirre López Dania Ximena", school: "TRINITY SCHOOL MX" },
 	{ committee: "UNESCO", delegation: "Kingdom of Spain", delegateName: "Del Castillo Velasco Cholula Franco", school: "TRINITY SCHOOL MX" },
@@ -64,12 +64,12 @@ const SEED_ROWS = [
 	{ committee: "UNESCO", delegation: "United Mexican States", delegateName: "Rodríguez Reyes Santiago", school: "TRINITY SCHOOL MX" },
 	{ committee: "UNESCO", delegation: "Colombia (Republic of Colombia)", delegateName: "Bruno el nuevo", school: "TRINITY SCHOOL MX" },
 	{ committee: "UNESCO", delegation: "United States (United States of America)", delegateName: "Kassia Pinheiro Silva", school: "BENAVENTE" },
-	{ committee: "UNESCO", delegation: "Russia (Russian Federation)", delegateName: "Víctor Fernando Martínez", school: "ARNOD" },
+	{ committee: "UNESCO", delegation: "Russia (Russian Federation)", delegateName: "Víctor Fernando Martínez", school: "ANROD" },
 	{ committee: "UNESCO", delegation: "Haiti", delegateName: "Mikel Zurita", school: "TRINITY SCHOOL MX" },
 	{ committee: "UNESCO", delegation: "Peru (Republic of Peru)", delegateName: "Mateo Aizpuro", school: "TRINITY SCHOOL MX" },
 	{ committee: "UNESCO", delegation: "France (French Republic)", delegateName: "Daniela Aguilera Arroyo", school: "BENAVENTE" },
-	{ committee: "UNESCO", delegation: "Dominican Republic of Congo", delegateName: "Diego Barroeta Ruiz", school: "PEDREGAL" },
-	{ committee: "UNESCO", delegation: "United Kingdom", delegateName: "Sofía Teresa Cuautle Flores", school: "BENAVENTE" },
+	{ committee: "UNESCO", delegation: "Dominican Republic of Congo", delegateName: "Diego Barroeta Ruiz", school: "Pedregal" },
+	{ committee: "UNESCO", delegation: "United Kingdom", delegateName: "Sofia Teresa Cuautle Flores", school: "BENAVENTE" },
 
 	{ committee: "CIJ", delegation: "Reino de Arabia Saudita", delegateName: "De la Rosa García Carlos Samuel", school: "TRINITY SCHOOL MX" },
 	{ committee: "CIJ", delegation: "Reino Unido de Gran Bretaña e Irlanda del Norte", delegateName: "Zozoaga Calderón Alessandra Lorelle", school: "TRINITY SCHOOL MX" },
@@ -78,16 +78,16 @@ const SEED_ROWS = [
 	{ committee: "CIJ", delegation: "República de Filipinas", delegateName: "Crespo Solís Camila", school: "TRINITY SCHOOL MX" },
 	{ committee: "CIJ", delegation: "República de Turquía", delegateName: "Juárez Ballesteros Christian", school: "TRINITY SCHOOL MX" },
 	{ committee: "CIJ", delegation: "República Democrática Federal de Etiopía", delegateName: "Sánchez Baldera Fátima", school: "TRINITY SCHOOL MX" },
-	{ committee: "CIJ", delegation: "República Federativa de Brasil", delegateName: "Jiménez Palaijne Khalil", school: "TRINITY SCHOOL MX" },
+	{ committee: "CIJ", delegation: "República Federativa de Brasil", delegateName: "Jiménez Patjane Khalil", school: "TRINITY SCHOOL MX" },
 	{ committee: "CIJ", delegation: "México (Estados Unidos Mexicanos)", delegateName: "Palafox Plata Camila", school: "TRINITY SCHOOL MX" },
 	{ committee: "CIJ", delegation: "República Libanesa", delegateName: "Lara Germenus Diego", school: "TRINITY SCHOOL MX" },
 	{ committee: "CIJ", delegation: "República Francesa", delegateName: "Mauricio Lozano Rivera", school: "Liceo Británico de México" },
 	{ committee: "CIJ", delegation: "People's Republic of China", delegateName: "Francisco Issac Ramón Fernández", school: "BUAP" },
 	{ committee: "CIJ", delegation: "Russian Federation", delegateName: "David Ezequias", school: "BUAP" },
 	{ committee: "CIJ", delegation: "United States of America", delegateName: "Yael Reyes Dector", school: "BUAP" },
-	{ committee: "CIJ", delegation: "Siria (República Árabe Siria)", delegateName: "Valeria Fernández Gutiérrez", school: "Liceo Británico de México" },
-	{ committee: "CIJ", delegation: "Irak (República de Irak)", delegateName: "Iker Furklong", school: "San Joseph" },
-	{ committee: "CIJ", delegation: "Afganistán (República Islámica de Afganistán)", delegateName: "Daniela Díaz ", school: "San Joseph" },
+	{ committee: "CIJ", delegation: "República Árabe Siria", delegateName: "Valeria Fernández Gutiérrez", school: "Liceo Británico de México" },
+	{ committee: "CIJ", delegation: "República de Irak", delegateName: "Iker Furklong", school: "San Joseph" },
+	{ committee: "CIJ", delegation: "República Islámica de Afganistán", delegateName: "Daniela Díaz", school: "San Joseph" },
 
 	{ committee: "PROFESORES", delegation: "PROFESORES", delegateName: "Aldo Wilfrido Meza Gaspar", school: "TRINITY SCHOOL MX" },
 	{ committee: "PROFESORES", delegation: "PROFESORES", delegateName: "Ana Paola Guzmán Bello", school: "TRINITY SCHOOL MX" },
@@ -160,8 +160,6 @@ const ADMIN_EMAILS = [
     "valeriahu@trinityschool.mx",
     "enriquesc@trinityschool.mx",
     "laurocr@trinityschool.mx",
-	"alexandrase@trinityschool.mx",
-	"maybedmcpremium@gmail.com",
 ];
 
 const committeeSections = document.getElementById("committeeSections");
@@ -199,9 +197,26 @@ let cloudUnsubscribe = null;
 let cloudCollection = FIREBASE_COLLECTION;
 let firebaseApp = null;
 let renderCycle = 0;
-let fixedRowsRepairPending = true;
+const ROSTER_SYNC_FLAG = "comida-roster-sync-20260323";
+let rosterSyncPending = true;
 
-const FIXED_ID_COMMITTEES = new Set(["PROFESORES", "HIGHCOMMAND", "MESAS"]);
+function hasLocalFlag(key) {
+	try {
+		return localStorage.getItem(key) === "1";
+	} catch {
+		return false;
+	}
+}
+
+function setLocalFlag(key) {
+	try {
+		localStorage.setItem(key, "1");
+	} catch {
+		return;
+	}
+}
+
+rosterSyncPending = !hasLocalFlag(ROSTER_SYNC_FLAG);
 
 function openQrModal() {
 	if (!qrModal) return;
@@ -409,9 +424,9 @@ function isSameDelegateDoc(existing, nextDoc) {
 		&& Boolean(existing.meal) === nextDoc.meal;
 }
 
-async function repairFixedCommitteeRows(cloudRows) {
-	if (!cloudDb || !isAdmin || !fixedRowsRepairPending) return false;
-	const canonicalRows = buildBaseRecords().filter((row) => FIXED_ID_COMMITTEES.has(row.committee));
+async function syncCanonicalRosterRows(cloudRows) {
+	if (!cloudDb || !isAdmin || !rosterSyncPending) return false;
+	const canonicalRows = buildBaseRecords();
 	const byId = new Map(cloudRows.map((row) => [String(row.id || ""), row]));
 	const batch = cloudDb.batch();
 	const collectionRef = cloudDb.collection(cloudCollection);
@@ -435,7 +450,8 @@ async function repairFixedCommitteeRows(cloudRows) {
 		}
 	}
 
-	fixedRowsRepairPending = false;
+	rosterSyncPending = false;
+	setLocalFlag(ROSTER_SYNC_FLAG);
 	if (!writes) return false;
 	await batch.commit();
 	return true;
@@ -448,7 +464,6 @@ async function disconnectCloud(silent = false) {
 	}
 	cloudEnabled = false;
 	cloudDb = null;
-	fixedRowsRepairPending = true;
 	if (!silent) {
 		updateCloudStatus("Sincronización detenida. Cambios nuevos quedan solo en este dispositivo.");
 	}
@@ -475,11 +490,11 @@ async function connectCloud() {
 	cloudUnsubscribe = collectionRef.onSnapshot(async (snapshot) => {
 		const cloudRows = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 		try {
-			const repaired = await repairFixedCommitteeRows(cloudRows);
-			if (repaired) return;
+			const synced = await syncCanonicalRosterRows(cloudRows);
+			if (synced) return;
 		} catch {
-			fixedRowsRepairPending = false;
-			updateCloudStatus("No se pudo reparar datos de PROFESORES/HIGHCOMMAND/MESAS. Revisa reglas/permisos de Firestore.");
+			rosterSyncPending = false;
+			updateCloudStatus("No se pudo sincronizar el roster canonico. Revisa reglas/permisos de Firestore.");
 		}
 		const { merged, missing } = mergeCloudRows(cloudRows);
 		delegates = merged;
