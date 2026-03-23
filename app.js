@@ -49,7 +49,7 @@ const SEED_ROWS = [
 	{ committee: "ECOSOC", delegation: "Sudan (Republic of the Sudan)", delegateName: "Regina Limón Sánchez ", school: "ANAHUAC" },
 	{ committee: "ECOSOC", delegation: "United Kingdom (United Kingdom of Great Britain and Northern Ireland)", delegateName: "Farah Ceballos", school: "TRINITY SCHOOL MX" },
 	{ committee: "ECOSOC", delegation: "United States (United States of America)", delegateName: "Itzel Ortega ", school: "BUAP" },
-	{ committee: "ECOSOC", delegation: "France (French Republic)", delegateName: "Marcelo Martínez", school: "TRINNITY SCHOOL MX" },
+	{ committee: "ECOSOC", delegation: "France (French Republic)", delegateName: "Villa Pedraza Nicolas", school: "TRINNITY SCHOOL MX" },
 	{ committee: "ECOSOC", delegation: "Italy (Italian Republic)", delegateName: "Shara Alkaid Huicochea Cárdenas", school: "ANAHUAC" },
 	{ committee: "ECOSOC", delegation: "Kenya (Republic of Kenya)", delegateName: "Gustavo Vidal Franco Cortés", school: "ANAHUAC" },
 
