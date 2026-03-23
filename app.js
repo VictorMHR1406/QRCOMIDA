@@ -197,7 +197,7 @@ let cloudUnsubscribe = null;
 let cloudCollection = FIREBASE_COLLECTION;
 let firebaseApp = null;
 let renderCycle = 0;
-const ROSTER_SYNC_FLAG = "comida-roster-sync-20260323";
+const ROSTER_SYNC_FLAG = "comida-roster-sync-20260323-2";
 let rosterSyncPending = true;
 
 function hasLocalFlag(key) {
@@ -450,10 +450,15 @@ async function syncCanonicalRosterRows(cloudRows) {
 		}
 	}
 
+	if (!writes) {
+		rosterSyncPending = false;
+		setLocalFlag(ROSTER_SYNC_FLAG);
+		return false;
+	}
+
+	await batch.commit();
 	rosterSyncPending = false;
 	setLocalFlag(ROSTER_SYNC_FLAG);
-	if (!writes) return false;
-	await batch.commit();
 	return true;
 }
 
