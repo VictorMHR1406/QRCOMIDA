@@ -172,6 +172,7 @@ const stopScannerBtn = document.getElementById("stopScannerBtn");
 const searchInput = document.getElementById("searchInput");
 const clearSearchBtn = document.getElementById("clearSearchBtn");
 const cloudStatus = document.getElementById("cloudStatus");
+const forceRosterSyncBtn = document.getElementById("forceRosterSyncBtn");
 const loginOverlay = document.getElementById("loginOverlay");
 const appContent = document.getElementById("appContent");
 const userBar = document.getElementById("userBar");
@@ -424,8 +425,9 @@ function isSameDelegateDoc(existing, nextDoc) {
 		&& Boolean(existing.meal) === nextDoc.meal;
 }
 
-async function syncCanonicalRosterRows(cloudRows) {
-	if (!cloudDb || !isAdmin || !rosterSyncPending) return false;
+async function syncCanonicalRosterRows(cloudRows, force = false) {
+	if (!cloudDb || !isAdmin) return 0;
+	if (!force && !rosterSyncPending) return 0;
 	const canonicalRows = buildBaseRecords();
 	const byId = new Map(cloudRows.map((row) => [String(row.id || ""), row]));
 	const batch = cloudDb.batch();
@@ -453,13 +455,59 @@ async function syncCanonicalRosterRows(cloudRows) {
 	if (!writes) {
 		rosterSyncPending = false;
 		setLocalFlag(ROSTER_SYNC_FLAG);
-		return false;
+		return 0;
 	}
 
 	await batch.commit();
 	rosterSyncPending = false;
 	setLocalFlag(ROSTER_SYNC_FLAG);
-	return true;
+	return writes;
+}
+
+async function forceRosterSync() {
+	if (!isAdmin) {
+		alert("Solo administradores pueden re-sincronizar.");
+		return;
+	}
+	if (!cloudDb) {
+		alert("Sin conexion a Firestore.");
+		return;
+	}
+
+	if (forceRosterSyncBtn) {
+		forceRosterSyncBtn.disabled = true;
+		forceRosterSyncBtn.textContent = "Sincronizando...";
+	}
+
+	try {
+		const collectionRef = cloudDb.collection(cloudCollection);
+		const snap = await collectionRef.get();
+		const cloudRows = snap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+		const writes = await syncCanonicalRosterRows(cloudRows, true);
+
+		const fresh = await collectionRef.get();
+		const latestRows = fresh.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+		const { merged } = mergeCloudRows(latestRows);
+		delegates = merged;
+		await renderCommitteeSections();
+
+		if (writes > 0) {
+			updateCloudStatus(`Roster sincronizado manualmente (${writes} cambios).`);
+			showToast(`Sincronizacion completada: ${writes} cambios`);
+		} else {
+			updateCloudStatus("Roster ya estaba sincronizado.");
+			showToast("Roster ya estaba sincronizado");
+		}
+	} catch (err) {
+		const reason = describeSaveError(err);
+		updateCloudStatus(`Error al sincronizar roster: ${reason}`);
+		alert(`No se pudo re-sincronizar. ${reason}`);
+	} finally {
+		if (forceRosterSyncBtn) {
+			forceRosterSyncBtn.disabled = false;
+			forceRosterSyncBtn.textContent = "Re-sincronizar comites";
+		}
+	}
 }
 
 async function disconnectCloud(silent = false) {
@@ -495,8 +543,8 @@ async function connectCloud() {
 	cloudUnsubscribe = collectionRef.onSnapshot(async (snapshot) => {
 		const cloudRows = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 		try {
-			const synced = await syncCanonicalRosterRows(cloudRows);
-			if (synced) return;
+			const writes = await syncCanonicalRosterRows(cloudRows);
+			if (writes > 0) return;
 		} catch {
 			rosterSyncPending = false;
 			updateCloudStatus("No se pudo sincronizar el roster canonico. Revisa reglas/permisos de Firestore.");
@@ -536,6 +584,9 @@ function hideApp() {
 	closeQrModal();
 	appContent.hidden = true;
 	userBar.hidden = true;
+	if (forceRosterSyncBtn) {
+		forceRosterSyncBtn.hidden = true;
+	}
 	loginOverlay.style.display = "flex";
 }
 
@@ -549,6 +600,9 @@ async function showApp(user) {
 	// Show scanner only to admins
 	if (scannerSection) {
 		scannerSection.style.display = isAdmin ? "" : "none";
+	}
+	if (forceRosterSyncBtn) {
+		forceRosterSyncBtn.hidden = !isAdmin;
 	}
 
 	await renderCommitteeSections();
@@ -1362,6 +1416,10 @@ clearSearchBtn.addEventListener("click", async () => {
 	searchTerm = "";
 	await renderCommitteeSections();
 });
+
+if (forceRosterSyncBtn) {
+	forceRosterSyncBtn.addEventListener("click", forceRosterSync);
+}
 
 async function initApp() {
 	closeQrModal();
